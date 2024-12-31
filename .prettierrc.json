@@ -2,6 +2,7 @@
 	"trailingComma": "none",
 	"tabWidth": 4,
 	"useTabs": true,
+	"printWidth": 100,
 	"semi": false,
 	"singleQuote": true,
 	"jsxSingleQuote": true,
@@ -10,10 +11,6 @@
 	"importOrderSeparation": true,
 	"importOrderSortSpecifiers": true,
 	"importOrderCaseInsensitive": true,
-	"importOrderParserPlugins": [
-		"classProperties",
-		"decorators-legacy",
-		"typescript"
-	],
+	"importOrderParserPlugins": ["classProperties", "decorators-legacy", "typescript"],
 	"importOrder": ["<THIRD_PARTY_MODULES>", "^@/(.*)$", "^../(.*)", "^./(.*)"]
 }
