@@ -3,15 +3,19 @@ import { hash } from 'argon2'
 
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
-import { CreateUserInput } from './inputs/createUser.input'
+import { CreateUserInput } from './inputs/create-user.input'
 import { UserModel } from './models/user.model'
 
 @Injectable()
 export class AccountService {
 	constructor(private readonly prismaService: PrismaService) {}
 
-	public async getAllUsers(): Promise<UserModel[]> {
-		return this.prismaService.user.findMany()
+	public async getMe(userId: UserModel['id']): Promise<UserModel> {
+		return this.prismaService.user.findUnique({
+			where: {
+				id: userId
+			}
+		})
 	}
 
 	public async createUser(input: CreateUserInput): Promise<boolean> {

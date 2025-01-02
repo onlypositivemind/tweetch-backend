@@ -1,4 +1,4 @@
-import { exhaustiveCheck } from './exhaustiveCheck'
+import { exhaustiveCheck } from './exhaustive-check'
 
 const s = 1000
 const m = s * 60

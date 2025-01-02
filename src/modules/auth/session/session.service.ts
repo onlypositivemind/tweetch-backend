@@ -1,13 +1,22 @@
-import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common'
+import {
+	ConflictException,
+	Injectable,
+	InternalServerErrorException,
+	NotFoundException,
+	UnauthorizedException
+} from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { verify } from 'argon2'
 import { Request } from 'express'
 
 import { PrismaService } from '@/src/core/prisma/prisma.service'
+import { RedisService } from '@/src/core/redis/redis.service'
+import { getSessionMetadata } from '@/src/shared/utils'
 
 import { UserModel } from '../account/models/user.model'
 
 import { LoginInput } from './inputs/login.input'
+import { SessionModel } from './models/session.model'
 
 const LOGIN_ERROR_MESSAGE = 'The login and/or password you specified are not correct'
 
@@ -15,11 +24,12 @@ const LOGIN_ERROR_MESSAGE = 'The login and/or password you specified are not cor
 export class SessionService {
 	constructor(
 		private readonly prismaService: PrismaService,
+		private readonly redisService: RedisService,
 		private readonly configService: ConfigService
 	) {}
 
 	// TODO login убрать из возвращаемого типа password
-	public async login(req: Request, input: LoginInput): Promise<UserModel> {
+	public async login(req: Request, input: LoginInput, userAgent: string): Promise<UserModel> {
 		const { login, password } = input
 
 		const user = await this.prismaService.user.findFirst({
@@ -36,9 +46,12 @@ export class SessionService {
 			throw new UnauthorizedException(LOGIN_ERROR_MESSAGE)
 		}
 
+		const metadata = getSessionMetadata(req, userAgent)
+
 		return new Promise((resolve, reject) => {
 			req.session.userId = user.id
 			req.session.createdAt = new Date()
+			req.session.metadata = metadata
 
 			req.session.save(err => {
 				if (err) {
@@ -62,5 +75,72 @@ export class SessionService {
 				resolve(true)
 			})
 		})
+	}
+
+	public async getCurrentSession(req: Request): Promise<SessionModel> {
+		const sessionId = req.session.id
+		const sessionFolder = this.configService.getOrThrow<string>('SESSION_FOLDER')
+
+		const sessionData = await this.redisService.get(`${sessionFolder}${sessionId}`)
+		const session = JSON.parse(sessionData)
+
+		return {
+			...session,
+			id: sessionId
+		}
+	}
+
+	// TODO return type
+	public async getSessions(req: Request): Promise<SessionModel[]> {
+		const userId = req.session.userId
+		if (!userId) {
+			throw new NotFoundException('The user was not found')
+		}
+
+		const keys = await this.redisService.keys('*')
+		if (!keys) {
+			return []
+		}
+
+		const userSessions = []
+
+		for (const key of keys) {
+			const sessionData = await this.redisService.get(key)
+
+			if (sessionData) {
+				const session = JSON.parse(sessionData)
+
+				if (session.userId === userId) {
+					const id = key.split(':')[1]
+
+					userSessions.push({
+						...session,
+						id
+					})
+				}
+			}
+		}
+
+		return userSessions
+			.sort((a, b) => b.createdAt - a.createdAt)
+			.filter(session => session.id !== req.session.id)
+	}
+
+	public async clearSession(req: Request): Promise<boolean> {
+		const sessionName = this.configService.getOrThrow<string>('SESSION_NAME')
+		req.res.clearCookie(sessionName)
+
+		return true
+	}
+
+	public async removeSession(req: Request, sessionId: string): Promise<boolean> {
+		if (req.session.id === sessionId) {
+			throw new ConflictException('The current session cannot be deleted')
+		}
+
+		const sessionFolder = this.configService.getOrThrow<string>('SESSION_FOLDER')
+		await this.redisService.del(`${sessionFolder}${sessionId}`)
+
+		return true
 	}
 }
