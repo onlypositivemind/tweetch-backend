@@ -1,5 +1,4 @@
 export * from './environment'
 export * from './exhaustive-check'
 export * from './get-milliseconds'
-export * from './get-session-metadata'
 export * from './parse-boolean'

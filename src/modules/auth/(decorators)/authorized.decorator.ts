@@ -2,7 +2,7 @@ import { createParamDecorator, type ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 
 import { User } from '@/prisma/generated'
-import type { GqlContext } from '@/src/shared/types'
+import { GqlContext } from '@/src/shared/types'
 
 export const Authorized = createParamDecorator((key: keyof User, ctx: ExecutionContext) => {
 	const user: User =

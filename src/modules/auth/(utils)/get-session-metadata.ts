@@ -2,8 +2,8 @@ import { Request } from 'express'
 import { lookup } from 'geoip-lite'
 import * as countries from 'i18n-iso-countries'
 
-import { isDevelopment } from '../constants'
-import { SessionMetadata } from '../types'
+import { isDevelopment } from '@/src/shared/constants'
+import { SessionMetadata } from '@/src/shared/types'
 
 // TODO
 // eslint-disable-next-line @typescript-eslint/no-require-imports

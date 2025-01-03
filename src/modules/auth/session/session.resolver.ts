@@ -2,8 +2,8 @@ import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 
 import { GqlContext } from '@/src/shared/types'
 
+import { Authorization, UserAgent } from '../(decorators)'
 import { UserModel } from '../account/models/user.model'
-import { Authorization, UserAgent } from '../decorators'
 
 import { LoginInput } from './inputs/login.input'
 import { SessionModel } from './models/session.model'

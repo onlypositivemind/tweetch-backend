@@ -10,6 +10,9 @@ export class UserModel implements User {
 	@Field(() => String)
 	public email: string
 
+	@Field(() => Boolean)
+	public isEmailVerified: boolean
+
 	@Field(() => String)
 	public password: string
 
@@ -24,6 +27,9 @@ export class UserModel implements User {
 
 	@Field(() => ID)
 	public updatedAt: Date
+
+	@Field(() => Boolean)
+	public isVerified: boolean
 
 	@Field(() => String, { nullable: true })
 	public avatar: string

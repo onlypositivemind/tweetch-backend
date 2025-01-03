@@ -1,7 +1,7 @@
 import {
+	BadRequestException,
 	ConflictException,
 	Injectable,
-	InternalServerErrorException,
 	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
@@ -11,8 +11,9 @@ import { Request } from 'express'
 
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 import { RedisService } from '@/src/core/redis/redis.service'
-import { getSessionMetadata } from '@/src/shared/utils'
 
+import { destroySession, getSessionMetadata, saveSession } from '../(utils)'
+import { AccountService } from '../account/account.service'
 import { UserModel } from '../account/models/user.model'
 
 import { LoginInput } from './inputs/login.input'
@@ -25,6 +26,7 @@ export class SessionService {
 	constructor(
 		private readonly prismaService: PrismaService,
 		private readonly redisService: RedisService,
+		private readonly accountService: AccountService,
 		private readonly configService: ConfigService
 	) {}
 
@@ -46,35 +48,25 @@ export class SessionService {
 			throw new UnauthorizedException(LOGIN_ERROR_MESSAGE)
 		}
 
+		if (!user.isEmailVerified) {
+			await this.accountService.sendAccountVerificationToken(user.id, user.email)
+
+			throw new BadRequestException(
+				'The account has not been verified. Please check your email for confirmation.'
+			)
+		}
+
 		const metadata = getSessionMetadata(req, userAgent)
 
-		return new Promise((resolve, reject) => {
-			req.session.userId = user.id
-			req.session.createdAt = new Date()
-			req.session.metadata = metadata
+		await saveSession(req, user.id, metadata)
 
-			req.session.save(err => {
-				if (err) {
-					reject(new InternalServerErrorException('Session save error'))
-				}
-
-				resolve(user)
-			})
-		})
+		return user
 	}
 
 	public async logout(req: Request): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			req.session.destroy(err => {
-				if (err) {
-					reject(new InternalServerErrorException('Session destroy error'))
-				}
+		await destroySession(req, this.configService)
 
-				req.res.clearCookie(this.configService.getOrThrow<string>('SESSION_NAME'))
-
-				resolve(true)
-			})
-		})
+		return true
 	}
 
 	public async getCurrentSession(req: Request): Promise<SessionModel> {
