@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { render } from '@react-email/components'
 
-import { AccountVerificationTemplate } from './templates'
+import { AccountVerification } from './templates'
 
 @Injectable()
 export class MailService {
@@ -22,7 +22,7 @@ export class MailService {
 
 	public async sendAccountVerificationToken(email: string, token: string): Promise<void> {
 		const domain = this.configService.getOrThrow<string>('ALLOWED_ORIGIN')
-		const html = await render(AccountVerificationTemplate({ domain, token }))
+		const html = await render(AccountVerification({ domain, token }))
 
 		return this.sendMail(email, 'Account verification', html)
 	}

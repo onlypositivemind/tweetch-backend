@@ -12,7 +12,7 @@ export const generateToken = async (
 	type: TokenType,
 	userId: string,
 	prismaService: PrismaService,
-	isUuid = false
+	isUuid = true
 ): Promise<Token> => {
 	const token = isUuid ? uuidv4() : getRandomToken()
 	const expiresIn = getExpiresIn()

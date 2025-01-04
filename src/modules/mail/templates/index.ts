@@ -1,1 +1,1 @@
-export * from './AccountVerification.template'
+export * from './AccountVerification'

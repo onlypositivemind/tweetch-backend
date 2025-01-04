@@ -12,6 +12,6 @@ export const getMailerConfig = (configService: ConfigService): MailerOptions => 
 		}
 	},
 	defaults: {
-		from: `"Tweetch" ${configService.getOrThrow<string>('MAILER_LOGIN')}`
+		from: `"Tweetch" <${configService.getOrThrow<string>('MAILER_LOGIN')}>`
 	}
 })
