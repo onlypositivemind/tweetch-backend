@@ -5,9 +5,13 @@ import { GqlContext } from '@/src/shared/types'
 import { Authorization, Authorized, UserAgent } from '../(decorators)'
 
 import { AccountService } from './account.service'
-import { CreateUserInput } from './inputs/create-user.input'
-import { VerifyAccountInput } from './inputs/verify-account.input'
-import { UserModel } from './models/user.model'
+import {
+	ChangePasswordByRecoveryInput,
+	CreateUserInput,
+	RecoverPasswordInput,
+	VerifyAccountInput
+} from './inputs'
+import { UserModel } from './models'
 
 @Resolver('Account')
 export class AccountResolver {
@@ -31,5 +35,21 @@ export class AccountResolver {
 		@UserAgent() userAgent: string
 	): Promise<UserModel> {
 		return this.accountService.verifyAccount(req, input, userAgent)
+	}
+
+	@Mutation(() => Boolean, { name: 'recoverPassword' })
+	public async recoverPassword(
+		@Context() { req }: GqlContext,
+		@Args('data') input: RecoverPasswordInput,
+		@UserAgent() userAgent: string
+	): Promise<boolean> {
+		return this.accountService.recoverPassword(req, input, userAgent)
+	}
+
+	@Mutation(() => Boolean, { name: 'changePasswordByRecovery' })
+	public async changePasswordByRecovery(
+		@Args('data') input: ChangePasswordByRecoveryInput
+	): Promise<boolean> {
+		return this.accountService.changePasswordByRecovery(input)
 	}
 }

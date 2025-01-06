@@ -28,6 +28,7 @@ model User {
 
 enum TokenType {
   EMAIL_VERIFY
+  PASSWORD_RECOVERY
 
   @@map("token_type")
 }

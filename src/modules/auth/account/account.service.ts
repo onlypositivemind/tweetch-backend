@@ -13,9 +13,13 @@ import { MailService } from '@/src/modules/mail/mail.service'
 
 import { generateToken, getSessionMetadata, saveSession } from '../(utils)'
 
-import { CreateUserInput } from './inputs/create-user.input'
-import { VerifyAccountInput } from './inputs/verify-account.input'
-import { UserModel } from './models/user.model'
+import {
+	ChangePasswordByRecoveryInput,
+	CreateUserInput,
+	RecoverPasswordInput,
+	VerifyAccountInput
+} from './inputs'
+import { UserModel } from './models'
 
 @Injectable()
 export class AccountService {
@@ -101,6 +105,7 @@ export class AccountService {
 		if (!existingToken) {
 			throw new NotFoundException('The token was not found')
 		}
+
 		const isExpired = new Date(existingToken.expiresIn) < new Date()
 		if (isExpired) {
 			throw new BadRequestException('The token has expired')
@@ -127,5 +132,73 @@ export class AccountService {
 		await saveSession(req, user.id, metadata)
 
 		return user
+	}
+
+	public async recoverPassword(
+		req: Request,
+		input: RecoverPasswordInput,
+		userAgent: string
+	): Promise<boolean> {
+		const { email } = input
+
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				email
+			}
+		})
+		if (!user) {
+			throw new NotFoundException('Please check the email address you provided.')
+		}
+
+		const recoveryToken = await generateToken(
+			TokenType.PASSWORD_RECOVERY,
+			user.id,
+			this.prismaService
+		)
+
+		const metadata = getSessionMetadata(req, userAgent)
+
+		await this.mailService.sendPasswordRecoveryToken(user.email, recoveryToken.token, metadata)
+
+		return true
+	}
+
+	public async changePasswordByRecovery(input: ChangePasswordByRecoveryInput): Promise<boolean> {
+		const { password, token } = input
+
+		const existingToken = await this.prismaService.token.findUnique({
+			where: {
+				token,
+				type: TokenType.PASSWORD_RECOVERY
+			}
+		})
+		if (!existingToken) {
+			throw new NotFoundException('The token was not found')
+		}
+
+		const isExpired = new Date(existingToken.expiresIn) < new Date()
+		if (isExpired) {
+			throw new BadRequestException('The token has expired')
+		}
+
+		const hashPassword = await hash(password)
+
+		await this.prismaService.user.update({
+			where: {
+				id: existingToken.userId
+			},
+			data: {
+				password: hashPassword
+			}
+		})
+
+		await this.prismaService.token.delete({
+			where: {
+				id: existingToken.id,
+				type: TokenType.PASSWORD_RECOVERY
+			}
+		})
+
+		return true
 	}
 }

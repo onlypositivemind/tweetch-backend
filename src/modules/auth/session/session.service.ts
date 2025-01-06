@@ -14,10 +14,10 @@ import { RedisService } from '@/src/core/redis/redis.service'
 
 import { destroySession, getSessionMetadata, saveSession } from '../(utils)'
 import { AccountService } from '../account/account.service'
-import { UserModel } from '../account/models/user.model'
+import { UserModel } from '../account/models'
 
-import { LoginInput } from './inputs/login.input'
-import { SessionModel } from './models/session.model'
+import { LoginInput } from './inputs'
+import { SessionModel } from './models'
 
 const LOGIN_ERROR_MESSAGE = 'The login and/or password you specified are not correct'
 

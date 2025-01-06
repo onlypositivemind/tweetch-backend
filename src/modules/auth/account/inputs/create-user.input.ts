@@ -1,23 +1,25 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { IsEmail, IsNotEmpty, IsString, Matches, MinLength } from 'class-validator'
 
+import { PASSWORD_MIN_LENGTH, USERNAME_REX_EXP } from '@/src/shared/constants'
+
 @InputType()
 export class CreateUserInput {
 	@Field()
 	@IsString()
 	@IsNotEmpty()
 	@IsEmail()
-	public email: string
+	email: string
 
 	@Field()
 	@IsString()
 	@IsNotEmpty()
-	@Matches(/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/)
-	public username: string
+	@Matches(USERNAME_REX_EXP)
+	username: string
 
 	@Field()
 	@IsString()
 	@IsNotEmpty()
-	@MinLength(8)
-	public password: string
+	@MinLength(PASSWORD_MIN_LENGTH)
+	password: string
 }

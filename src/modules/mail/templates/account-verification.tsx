@@ -17,6 +17,7 @@ interface AccountVerificationProps {
 	token: string
 }
 
+
 export const AccountVerification = ({ domain, token }: AccountVerificationProps) => (
 	<Html>
 		{/* eslint-disable-next-line prettier/prettier */}

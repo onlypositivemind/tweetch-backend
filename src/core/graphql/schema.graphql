@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input ChangePasswordByRecoveryInput {
+  password: String!
+  token: String!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
@@ -32,10 +37,12 @@ input LoginInput {
 }
 
 type Mutation {
+  changePasswordByRecovery(data: ChangePasswordByRecoveryInput!): Boolean!
   clearSession: Boolean!
   createUser(data: CreateUserInput!): Boolean!
   login(data: LoginInput!): UserModel!
   logout: Boolean!
+  recoverPassword(data: RecoverPasswordInput!): Boolean!
   removeSession(id: String!): Boolean!
   verifyAccount(data: VerifyAccountInput!): UserModel!
 }
@@ -44,6 +51,10 @@ type Query {
   getCurrentSession: SessionModel!
   getMe: UserModel!
   getSessions: [SessionModel!]!
+}
+
+input RecoverPasswordInput {
+  email: String!
 }
 
 type SessionMetadataModel {
