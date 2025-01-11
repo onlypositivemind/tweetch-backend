@@ -18,8 +18,10 @@ model User {
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
   isVerified      Boolean  @default(false) @map("is_verified")
+  isTotpEnabled   Boolean  @default(false) @map("is_totp_enabled")
   avatar          String?
   bio             String?
+  totpSecret      String?  @map("totp_secret")
 
   tokens Token[]
 

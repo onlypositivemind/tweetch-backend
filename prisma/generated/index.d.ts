@@ -995,8 +995,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isVerified: boolean | null
+    isTotpEnabled: boolean | null
     avatar: string | null
     bio: string | null
+    totpSecret: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1009,8 +1011,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isVerified: boolean | null
+    isTotpEnabled: boolean | null
     avatar: string | null
     bio: string | null
+    totpSecret: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1023,8 +1027,10 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     isVerified: number
+    isTotpEnabled: number
     avatar: number
     bio: number
+    totpSecret: number
     _all: number
   }
 
@@ -1039,8 +1045,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    totpSecret?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1053,8 +1061,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    totpSecret?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1067,8 +1077,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    totpSecret?: true
     _all?: true
   }
 
@@ -1154,8 +1166,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     isVerified: boolean
+    isTotpEnabled: boolean
     avatar: string | null
     bio: string | null
+    totpSecret: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1185,8 +1199,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    totpSecret?: boolean
     tokens?: boolean | User$tokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1201,8 +1217,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    totpSecret?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1215,8 +1233,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    totpSecret?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1240,8 +1260,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       isVerified: boolean
+      isTotpEnabled: boolean
       avatar: string | null
       bio: string | null
+      totpSecret: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1645,8 +1667,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly isTotpEnabled: FieldRef<"User", 'Boolean'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly totpSecret: FieldRef<"User", 'String'>
   }
     
 
@@ -2991,8 +3015,10 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     isVerified: 'isVerified',
+    isTotpEnabled: 'isTotpEnabled',
     avatar: 'avatar',
-    bio: 'bio'
+    bio: 'bio',
+    totpSecret: 'totpSecret'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3119,8 +3145,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isVerified?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
     avatar?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    totpSecret?: StringNullableFilter<"User"> | string | null
     tokens?: TokenListRelationFilter
   }
 
@@ -3134,8 +3162,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     avatar?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
+    totpSecret?: SortOrderInput | SortOrder
     tokens?: TokenOrderByRelationAggregateInput
   }
 
@@ -3152,8 +3182,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isVerified?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
     avatar?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    totpSecret?: StringNullableFilter<"User"> | string | null
     tokens?: TokenListRelationFilter
   }, "id" | "email" | "username">
 
@@ -3167,8 +3199,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     avatar?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
+    totpSecret?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3187,8 +3221,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    isTotpEnabled?: BoolWithAggregatesFilter<"User"> | boolean
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    totpSecret?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type TokenWhereInput = {
@@ -3266,8 +3302,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    totpSecret?: string | null
     tokens?: TokenCreateNestedManyWithoutUserInput
   }
 
@@ -3281,8 +3319,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    totpSecret?: string | null
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -3296,8 +3336,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     tokens?: TokenUpdateManyWithoutUserNestedInput
   }
 
@@ -3311,8 +3353,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -3326,8 +3370,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    totpSecret?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3340,8 +3386,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3354,8 +3402,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TokenCreateInput = {
@@ -3498,8 +3548,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    totpSecret?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3512,8 +3564,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    totpSecret?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3526,8 +3580,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    totpSecret?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3924,8 +3980,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    totpSecret?: string | null
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -3938,8 +3996,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerified?: boolean
+    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    totpSecret?: string | null
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -3968,8 +4028,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -3982,8 +4044,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TokenCreateManyUserInput = {

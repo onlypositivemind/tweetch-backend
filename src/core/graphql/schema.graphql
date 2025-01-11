@@ -24,6 +24,11 @@ type DeviceModel {
   type: String!
 }
 
+input EnableTotpInput {
+  secret: String!
+  totpCode: String!
+}
+
 type LocationModel {
   city: String!
   country: String!
@@ -34,12 +39,15 @@ type LocationModel {
 input LoginInput {
   login: String!
   password: String!
+  totpCode: String
 }
 
 type Mutation {
   changePasswordByRecovery(data: ChangePasswordByRecoveryInput!): Boolean!
   clearSession: Boolean!
   createUser(data: CreateUserInput!): Boolean!
+  disableTotp: Boolean!
+  enableTotp(data: EnableTotpInput!): Boolean!
   login(data: LoginInput!): UserModel!
   logout: Boolean!
   recoverPassword(data: RecoverPasswordInput!): Boolean!
@@ -51,6 +59,7 @@ type Query {
   getCurrentSession: SessionModel!
   getMe: UserModel!
   getSessions: [SessionModel!]!
+  getTotpSecret: TotpModel!
 }
 
 input RecoverPasswordInput {
@@ -70,6 +79,11 @@ type SessionModel {
   userId: String!
 }
 
+type TotpModel {
+  qrcodeUrl: String!
+  secret: String!
+}
+
 type UserModel {
   avatar: String
   bio: String
@@ -78,8 +92,10 @@ type UserModel {
   email: String!
   id: ID!
   isEmailVerified: Boolean!
+  isTotpEnabled: Boolean!
   isVerified: Boolean!
   password: String!
+  totpSecret: String
   updatedAt: ID!
   username: String!
 }

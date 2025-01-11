@@ -17,6 +17,7 @@ import { UserModel } from './models'
 export class AccountResolver {
 	constructor(private readonly accountService: AccountService) {}
 
+	// TODO пройтись по всем местам где принимается/возвращается User/UserModel и возвращать UserDto
 	@Authorization()
 	@Query(() => UserModel, { name: 'getMe' })
 	public async getMe(@Authorized('id') userId: string): Promise<UserModel> {

@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 
 import { AccountModule } from '@/src/modules/auth/account/account.module'
 import { SessionModule } from '@/src/modules/auth/session/session.module'
+import { TotpModule } from '@/src/modules/auth/totp/totp.module'
 import { MailModule } from '@/src/modules/mail/mail.module'
 import { isDevelopment } from '@/src/shared/constants'
 
@@ -28,7 +29,8 @@ import { RedisModule } from './redis/redis.module'
 		RedisModule,
 		MailModule,
 		AccountModule,
-		SessionModule
+		SessionModule,
+		TotpModule
 	]
 })
 export class CoreModule {}

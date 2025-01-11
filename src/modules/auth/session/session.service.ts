@@ -12,7 +12,7 @@ import { Request } from 'express'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 import { RedisService } from '@/src/core/redis/redis.service'
 
-import { destroySession, getSessionMetadata, saveSession } from '../(utils)'
+import { destroySession, getSessionMetadata, getTotp, saveSession } from '../(utils)'
 import { AccountService } from '../account/account.service'
 import { UserModel } from '../account/models'
 
@@ -32,7 +32,7 @@ export class SessionService {
 
 	// TODO login убрать из возвращаемого типа password
 	public async login(req: Request, input: LoginInput, userAgent: string): Promise<UserModel> {
-		const { login, password } = input
+		const { login, password, totpCode } = input
 
 		const user = await this.prismaService.user.findFirst({
 			where: {
@@ -54,6 +54,19 @@ export class SessionService {
 			throw new BadRequestException(
 				'The account has not been verified. Please check your email for confirmation.'
 			)
+		}
+
+		if (user.isTotpEnabled) {
+			if (!totpCode) {
+				throw new BadRequestException('A code is required to complete authorization.')
+			}
+
+			const totp = getTotp(user.email, user.totpSecret)
+
+			const tokenDelta = totp.validate({ token: totpCode })
+			if (tokenDelta === null) {
+				throw new BadRequestException('Wrong code')
+			}
 		}
 
 		const metadata = getSessionMetadata(req, userAgent)

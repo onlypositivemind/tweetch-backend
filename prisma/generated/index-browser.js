@@ -127,8 +127,10 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isVerified: 'isVerified',
+  isTotpEnabled: 'isTotpEnabled',
   avatar: 'avatar',
-  bio: 'bio'
+  bio: 'bio',
+  totpSecret: 'totpSecret'
 };
 
 exports.Prisma.TokenScalarFieldEnum = {
