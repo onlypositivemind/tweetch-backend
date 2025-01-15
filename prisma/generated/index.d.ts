@@ -30,7 +30,8 @@ export type Token = $Result.DefaultSelection<Prisma.$TokenPayload>
 export namespace $Enums {
   export const TokenType: {
   EMAIL_VERIFY: 'EMAIL_VERIFY',
-  PASSWORD_RECOVERY: 'PASSWORD_RECOVERY'
+  PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
+  ACCOUNT_DEACTIVATION: 'ACCOUNT_DEACTIVATION'
 };
 
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
@@ -994,11 +995,13 @@ export namespace Prisma {
     displayName: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    isVerified: boolean | null
-    isTotpEnabled: boolean | null
     avatar: string | null
     bio: string | null
+    isVerified: boolean | null
+    isTotpEnabled: boolean | null
     totpSecret: string | null
+    isDeactivated: boolean | null
+    deactivatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1010,11 +1013,13 @@ export namespace Prisma {
     displayName: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    isVerified: boolean | null
-    isTotpEnabled: boolean | null
     avatar: string | null
     bio: string | null
+    isVerified: boolean | null
+    isTotpEnabled: boolean | null
     totpSecret: string | null
+    isDeactivated: boolean | null
+    deactivatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1026,11 +1031,13 @@ export namespace Prisma {
     displayName: number
     createdAt: number
     updatedAt: number
-    isVerified: number
-    isTotpEnabled: number
     avatar: number
     bio: number
+    isVerified: number
+    isTotpEnabled: number
     totpSecret: number
+    isDeactivated: number
+    deactivatedAt: number
     _all: number
   }
 
@@ -1044,11 +1051,13 @@ export namespace Prisma {
     displayName?: true
     createdAt?: true
     updatedAt?: true
-    isVerified?: true
-    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    isVerified?: true
+    isTotpEnabled?: true
     totpSecret?: true
+    isDeactivated?: true
+    deactivatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1060,11 +1069,13 @@ export namespace Prisma {
     displayName?: true
     createdAt?: true
     updatedAt?: true
-    isVerified?: true
-    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    isVerified?: true
+    isTotpEnabled?: true
     totpSecret?: true
+    isDeactivated?: true
+    deactivatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1076,11 +1087,13 @@ export namespace Prisma {
     displayName?: true
     createdAt?: true
     updatedAt?: true
-    isVerified?: true
-    isTotpEnabled?: true
     avatar?: true
     bio?: true
+    isVerified?: true
+    isTotpEnabled?: true
     totpSecret?: true
+    isDeactivated?: true
+    deactivatedAt?: true
     _all?: true
   }
 
@@ -1165,11 +1178,13 @@ export namespace Prisma {
     displayName: string
     createdAt: Date
     updatedAt: Date
-    isVerified: boolean
-    isTotpEnabled: boolean
     avatar: string | null
     bio: string | null
+    isVerified: boolean
+    isTotpEnabled: boolean
     totpSecret: string | null
+    isDeactivated: boolean
+    deactivatedAt: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1198,11 +1213,13 @@ export namespace Prisma {
     displayName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: boolean
+    isDeactivated?: boolean
+    deactivatedAt?: boolean
     tokens?: boolean | User$tokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1216,11 +1233,13 @@ export namespace Prisma {
     displayName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: boolean
+    isDeactivated?: boolean
+    deactivatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1232,11 +1251,13 @@ export namespace Prisma {
     displayName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: boolean
     bio?: boolean
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: boolean
+    isDeactivated?: boolean
+    deactivatedAt?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1259,11 +1280,13 @@ export namespace Prisma {
       displayName: string
       createdAt: Date
       updatedAt: Date
-      isVerified: boolean
-      isTotpEnabled: boolean
       avatar: string | null
       bio: string | null
+      isVerified: boolean
+      isTotpEnabled: boolean
       totpSecret: string | null
+      isDeactivated: boolean
+      deactivatedAt: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1666,11 +1689,13 @@ export namespace Prisma {
     readonly displayName: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
-    readonly isVerified: FieldRef<"User", 'Boolean'>
-    readonly isTotpEnabled: FieldRef<"User", 'Boolean'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly isTotpEnabled: FieldRef<"User", 'Boolean'>
     readonly totpSecret: FieldRef<"User", 'String'>
+    readonly isDeactivated: FieldRef<"User", 'Boolean'>
+    readonly deactivatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -3014,11 +3039,13 @@ export namespace Prisma {
     displayName: 'displayName',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    isVerified: 'isVerified',
-    isTotpEnabled: 'isTotpEnabled',
     avatar: 'avatar',
     bio: 'bio',
-    totpSecret: 'totpSecret'
+    isVerified: 'isVerified',
+    isTotpEnabled: 'isTotpEnabled',
+    totpSecret: 'totpSecret',
+    isDeactivated: 'isDeactivated',
+    deactivatedAt: 'deactivatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3144,11 +3171,13 @@ export namespace Prisma {
     displayName?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    isVerified?: BoolFilter<"User"> | boolean
-    isTotpEnabled?: BoolFilter<"User"> | boolean
     avatar?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    isVerified?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
     totpSecret?: StringNullableFilter<"User"> | string | null
+    isDeactivated?: BoolFilter<"User"> | boolean
+    deactivatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     tokens?: TokenListRelationFilter
   }
 
@@ -3161,11 +3190,13 @@ export namespace Prisma {
     displayName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    isVerified?: SortOrder
-    isTotpEnabled?: SortOrder
     avatar?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     totpSecret?: SortOrderInput | SortOrder
+    isDeactivated?: SortOrder
+    deactivatedAt?: SortOrderInput | SortOrder
     tokens?: TokenOrderByRelationAggregateInput
   }
 
@@ -3181,11 +3212,13 @@ export namespace Prisma {
     displayName?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    isVerified?: BoolFilter<"User"> | boolean
-    isTotpEnabled?: BoolFilter<"User"> | boolean
     avatar?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    isVerified?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
     totpSecret?: StringNullableFilter<"User"> | string | null
+    isDeactivated?: BoolFilter<"User"> | boolean
+    deactivatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     tokens?: TokenListRelationFilter
   }, "id" | "email" | "username">
 
@@ -3198,11 +3231,13 @@ export namespace Prisma {
     displayName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    isVerified?: SortOrder
-    isTotpEnabled?: SortOrder
     avatar?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     totpSecret?: SortOrderInput | SortOrder
+    isDeactivated?: SortOrder
+    deactivatedAt?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3220,11 +3255,13 @@ export namespace Prisma {
     displayName?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
-    isTotpEnabled?: BoolWithAggregatesFilter<"User"> | boolean
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    isTotpEnabled?: BoolWithAggregatesFilter<"User"> | boolean
     totpSecret?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isDeactivated?: BoolWithAggregatesFilter<"User"> | boolean
+    deactivatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type TokenWhereInput = {
@@ -3301,11 +3338,13 @@ export namespace Prisma {
     displayName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
     tokens?: TokenCreateNestedManyWithoutUserInput
   }
 
@@ -3318,11 +3357,13 @@ export namespace Prisma {
     displayName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -3335,11 +3376,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tokens?: TokenUpdateManyWithoutUserNestedInput
   }
 
@@ -3352,11 +3395,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -3369,11 +3414,13 @@ export namespace Prisma {
     displayName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3385,11 +3432,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3401,11 +3450,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TokenCreateInput = {
@@ -3523,6 +3574,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type TokenListRelationFilter = {
     every?: TokenWhereInput
     some?: TokenWhereInput
@@ -3547,11 +3609,13 @@ export namespace Prisma {
     displayName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    isVerified?: SortOrder
-    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
+    isDeactivated?: SortOrder
+    deactivatedAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3563,11 +3627,13 @@ export namespace Prisma {
     displayName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    isVerified?: SortOrder
-    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
+    isDeactivated?: SortOrder
+    deactivatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3579,11 +3645,13 @@ export namespace Prisma {
     displayName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    isVerified?: SortOrder
-    isTotpEnabled?: SortOrder
     avatar?: SortOrder
     bio?: SortOrder
+    isVerified?: SortOrder
+    isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
+    isDeactivated?: SortOrder
+    deactivatedAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3642,6 +3710,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumTokenTypeFilter<$PrismaModel = never> = {
@@ -3724,6 +3806,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type TokenUpdateManyWithoutUserNestedInput = {
@@ -3818,6 +3904,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3894,6 +3991,20 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumTokenTypeFilter<$PrismaModel = never> = {
@@ -3979,11 +4090,13 @@ export namespace Prisma {
     displayName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -3995,11 +4108,13 @@ export namespace Prisma {
     displayName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    isVerified?: boolean
-    isTotpEnabled?: boolean
     avatar?: string | null
     bio?: string | null
+    isVerified?: boolean
+    isTotpEnabled?: boolean
     totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -4027,11 +4142,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -4043,11 +4160,13 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TokenCreateManyUserInput = {

@@ -37,11 +37,11 @@ export class AccountService {
 	}
 
 	public async sendAccountVerificationToken(userId: string, email: string) {
-		const verificationToken = await generateToken(
-			TokenType.EMAIL_VERIFY,
+		const verificationToken = await generateToken({
 			userId,
-			this.prismaService
-		)
+			tokenType: TokenType.EMAIL_VERIFY,
+			prismaService: this.prismaService
+		})
 
 		await this.mailService.sendAccountVerificationToken(email, verificationToken.token)
 
@@ -150,11 +150,11 @@ export class AccountService {
 			throw new NotFoundException('Please check the email address you provided.')
 		}
 
-		const recoveryToken = await generateToken(
-			TokenType.PASSWORD_RECOVERY,
-			user.id,
-			this.prismaService
-		)
+		const recoveryToken = await generateToken({
+			userId: user.id,
+			tokenType: TokenType.PASSWORD_RECOVERY,
+			prismaService: this.prismaService
+		})
 
 		const metadata = getSessionMetadata(req, userAgent)
 

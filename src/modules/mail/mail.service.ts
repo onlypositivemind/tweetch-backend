@@ -5,7 +5,7 @@ import { render } from '@react-email/components'
 
 import type { SessionMetadata } from '@/src/shared/types'
 
-import { AccountVerification, PasswordRecovery } from './templates'
+import { AccountDeactivation, AccountVerification, PasswordRecovery } from './templates'
 
 @Injectable()
 export class MailService {
@@ -38,5 +38,15 @@ export class MailService {
 		const html = await render(PasswordRecovery({ domain, token, metadata }))
 
 		return this.sendMail(email, 'Password recovery', html)
+	}
+
+	public async sendAccountDeactivationToken(
+		email: string,
+		token: string,
+		metadata: SessionMetadata
+	): Promise<void> {
+		const html = await render(AccountDeactivation({ token, metadata }))
+
+		return this.sendMail(email, 'Account deactivation', html)
 	}
 }

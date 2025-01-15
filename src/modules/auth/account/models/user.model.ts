@@ -28,6 +28,12 @@ export class UserModel implements User {
 	@Field(() => ID)
 	public updatedAt: Date
 
+	@Field(() => String, { nullable: true })
+	public avatar: string
+
+	@Field(() => String, { nullable: true })
+	public bio: string
+
 	@Field(() => Boolean)
 	public isVerified: boolean
 
@@ -35,11 +41,11 @@ export class UserModel implements User {
 	public isTotpEnabled: boolean
 
 	@Field(() => String, { nullable: true })
-	public avatar: string
-
-	@Field(() => String, { nullable: true })
-	public bio: string
-
-	@Field(() => String, { nullable: true })
 	public totpSecret: string
+
+	@Field(() => Boolean)
+	public isDeactivated: boolean
+
+	@Field(() => Date, { nullable: true })
+	public deactivatedAt: Date
 }

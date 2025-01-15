@@ -3,23 +3,30 @@ import { v4 as uuidv4 } from 'uuid'
 import { Token, TokenType } from '@/prisma/generated'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
+interface GenerateTokenParams {
+	userId: string
+	tokenType: TokenType
+	prismaService: PrismaService
+	isUuid?: boolean
+}
+
 const getRandomToken = (): string =>
 	Math.floor(Math.random() * (1_000_000 - 100_000) + 100_000).toString()
 
 const getExpiresIn = (minutes = 5): Date => new Date(new Date().getTime() + minutes * 60 * 1000)
 
-export const generateToken = async (
-	type: TokenType,
-	userId: string,
-	prismaService: PrismaService,
+export const generateToken = async ({
+	userId,
+	tokenType,
+	prismaService,
 	isUuid = true
-): Promise<Token> => {
+}: GenerateTokenParams): Promise<Token> => {
 	const token = isUuid ? uuidv4() : getRandomToken()
 	const expiresIn = getExpiresIn()
 
 	const existingToken = await prismaService.token.findFirst({
 		where: {
-			type,
+			type: tokenType,
 			user: {
 				id: userId
 			}
@@ -37,7 +44,7 @@ export const generateToken = async (
 		data: {
 			token,
 			expiresIn,
-			type,
+			type: tokenType,
 			user: {
 				connect: {
 					id: userId
