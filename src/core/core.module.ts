@@ -7,6 +7,7 @@ import { AccountDeactivationModule } from '@/src/modules/auth/account-deactivati
 import { AccountModule } from '@/src/modules/auth/account/account.module'
 import { SessionModule } from '@/src/modules/auth/session/session.module'
 import { TotpModule } from '@/src/modules/auth/totp/totp.module'
+import { CronModule } from '@/src/modules/cron/cron.module'
 import { MailModule } from '@/src/modules/mail/mail.module'
 import { isDevelopment } from '@/src/shared/constants'
 
@@ -29,6 +30,7 @@ import { RedisModule } from './redis/redis.module'
 		PrismaModule,
 		RedisModule,
 		MailModule,
+		CronModule,
 		AccountModule,
 		SessionModule,
 		TotpModule,
